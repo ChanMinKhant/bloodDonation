@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react"
 import type { DonationRecord } from "../App"
+import {host} from "../host"
 
 const AdminDashboard: React.FC<{}> = () => {
   const [records, setRecords] = useState<DonationRecord[]>( [])
@@ -20,7 +21,7 @@ const AdminDashboard: React.FC<{}> = () => {
 
   // Fetch records from backend
   useEffect(() => {
-    fetch("http://localhost:3000/get")
+    fetch(`${host}/get`)
       .then((res) => res.json())
       .then((data) => setRecords(data))
       .catch((err) => console.error("Failed to fetch records:", err))
