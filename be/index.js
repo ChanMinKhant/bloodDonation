@@ -5,7 +5,7 @@ const {createDonationRecord, getDonationRecords, getDonationRecordById, updateDo
 const mongoose = require('mongoose');
 
 const app = express();
-app.use(cors({ origin: 'http://localhost:5173' })); // Enable CORS for localhost:5173
+app.use(cors()); // Enable CORS for any origin (current domain)W
 app.use(express.json()); // Middleware to parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
 app.use(express.static('public')); // Serve static files from the 'public' directory
