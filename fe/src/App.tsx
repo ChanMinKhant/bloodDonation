@@ -45,7 +45,7 @@ function App() {
       <header className="bg-red-600 text-white shadow-lg">
         <div className="container mx-auto px-4 py-4">
           <div className="flex flex-col sm:flex-row justify-between items-center">
-            <h1 className="text-2xl font-bold mb-2 sm:mb-0">🩸 UCSPyay Blood Donation Center</h1>
+            <h1 className="text-lg font-bold mb-2 sm:mb-0">🩸 UCSPyay Blood Donation Center</h1>
             <nav className="flex space-x-4">
               <button
                 onClick={() => setCurrentPage("form")}
