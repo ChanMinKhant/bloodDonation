@@ -1,0 +1,1 @@
+export const host: string = window.location.origin;
