@@ -5,7 +5,7 @@ const {createDonationRecord, getDonationRecords, getDonationRecordById, updateDo
 const mongoose = require('mongoose');
 
 const app = express();
-app.use(cors()); // Enable CORS for any origin (current domain)W
+app.use(cors({ origin: 'https://ucpyayblood.vercel.app' })); // Enable CORS for specific origin
 app.use(express.json()); // Middleware to parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
 app.use(express.static('public')); // Serve static files from the 'public' directory
