@@ -140,7 +140,7 @@ const AdminDashboard: React.FC<{}> = () => {
   const handleSaveEdit = async () => {
     if (editingRecord) {
       try {
-        const res = await fetch(`http://localhost:3000/update/${editingRecord._id}`, {
+        const res = await fetch(`${host}/update`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(editingRecord),
