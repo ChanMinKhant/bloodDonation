@@ -26,9 +26,9 @@ exports.createDonationRecord = async (req, res) => {
     }
 }
 
-exports.getDonationRecords = async (req, res) => {
+exports.getDonationRecords = async (_unused, res) => {
     try {
-        const records = await DonationRecord.find();
+        const records = await DonationRecord.find().lean().limit(500).skip(0);
         res.status(200).json(records);
     } catch (error) {
         console.error('Error fetching donation records:', error);
