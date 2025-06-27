@@ -140,7 +140,7 @@ const AdminDashboard: React.FC<{}> = () => {
   const handleSaveEdit = async () => {
     if (editingRecord) {
       try {
-        const res = await fetch(`${host}/update`, {
+        const res = await fetch(`${host}/update/${editingRecord._id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(editingRecord),
@@ -163,7 +163,7 @@ const AdminDashboard: React.FC<{}> = () => {
   const confirmDelete = async () => {
     if (recordToDelete) {
       try {
-        const res = await fetch(`http://localhost:3000/delete/${recordToDelete._id}`, {
+        const res = await fetch(`${host}/delete/${recordToDelete._id}`, {
           method: "DELETE",
         })
         if (res.ok) {
