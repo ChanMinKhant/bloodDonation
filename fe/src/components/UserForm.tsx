@@ -22,6 +22,7 @@ const UserForm: React.FC<{}> = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const bloodTypes = ["A", "B", "AB", "O"]
   const years = [1, 2, 3, 4, 5]
@@ -54,7 +55,7 @@ const UserForm: React.FC<{}> = () => {
 
 const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
+    setIsSubmitting(true)
     if (!validateForm()) return
 
     const record = {
@@ -98,8 +99,10 @@ const handleSubmit = async (e: React.FormEvent) => {
                 address: "",
             })
         }, 3000)
+        setIsSubmitting(false)
     } catch (error) {
         setErrors({ submit: "Failed to submit. Please try again." })
+        setIsSubmitting(false)
     }
 }
 
@@ -364,12 +367,13 @@ const handleSubmit = async (e: React.FormEvent) => {
           )}
 
           {/* Submit Button */}
-          <button
+            <button
             type="submit"
-            className="w-full bg-red-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors"
-          >
-            Submit Registration
-          </button>
+            className="w-full bg-red-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            disabled={isSubmitting}
+            >
+            {isSubmitting ? "Submitting, please wait..." : "Submit Registration"}
+            </button>
         </form>
       </div>
     </div>

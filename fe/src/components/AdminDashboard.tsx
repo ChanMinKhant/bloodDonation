@@ -145,6 +145,17 @@ const AdminDashboard: React.FC<{}> = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(editingRecord),
         })
+        // Update UI immediately for responsiveness
+        if (res.ok) {
+          const updated = await res.json()
+          setRecords((prev) => prev.map((r) => (r._id === updated._id ? updated : r)))
+          setShowEditModal(false)
+          setEditingRecord(null)
+        } else {
+          // If update failed, revert UI change
+          setRecords((prev) => prev.map((r) => (r._id === editingRecord._id ? editingRecord : r)))
+          alert("Failed to update record.")
+        }
         if (res.ok) {
           const updated = await res.json()
           setRecords((prev) => prev.map((r) => (r._id === updated._id ? updated : r)))
