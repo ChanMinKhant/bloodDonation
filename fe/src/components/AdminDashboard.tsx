@@ -257,9 +257,9 @@ const AdminDashboard: React.FC<{}> = () => {
           <span className="bg-green-50 text-green-700 px-3 py-1 rounded text-xs font-medium">
             Willing: {stats.willing}
           </span>
-          <span className="bg-purple-50 text-purple-700 px-3 py-1 rounded text-xs font-medium">
+          {/* <span className="bg-purple-50 text-purple-700 px-3 py-1 rounded text-xs font-medium">
             Students: {stats.students}
-          </span>
+          </span> */}
           <span className="bg-red-50 text-red-700 px-3 py-1 rounded text-xs font-medium">
             Filtered: {filteredRecords.length}
           </span>
