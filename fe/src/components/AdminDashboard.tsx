@@ -425,9 +425,6 @@ const AdminDashboard: React.FC<{}> = () => {
                       <div className="text-sm text-gray-900">{index + 1}</div>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{record._id}</div>
-                    </td>
-                    <td className="px-4 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">{record.name}</div>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
