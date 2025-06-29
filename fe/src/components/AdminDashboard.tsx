@@ -386,6 +386,8 @@ const AdminDashboard: React.FC<{}> = () => {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
+                
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Phone
@@ -417,8 +419,14 @@ const AdminDashboard: React.FC<{}> = () => {
                   </td>
                 </tr>
               ) : (
-                filteredRecords.map((record) => (
+                filteredRecords.map((record, index) => (
                   <tr key={record._id} className="hover:bg-gray-50">
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{index + 1}</div>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{record._id}</div>
+                    </td>
                     <td className="px-4 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">{record.name}</div>
                     </td>
