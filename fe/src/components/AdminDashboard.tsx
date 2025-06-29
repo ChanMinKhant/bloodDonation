@@ -341,7 +341,7 @@ const AdminDashboard: React.FC<{}> = () => {
             <option value="not-student">Non-Students</option>
           </select>
 
-          <select
+          {/* <select
             value={filters.year}
             onChange={(e) => setFilters({ ...filters, year: e.target.value })}
             className="px-2 py-1 border border-gray-300 rounded text-sm"
@@ -352,9 +352,9 @@ const AdminDashboard: React.FC<{}> = () => {
             <option value="3">Year 3</option>
             <option value="4">Year 4</option>
             <option value="5">Year 5</option>
-          </select>
+          </select> */}
 
-          <select
+          {/* <select
             value={filters.section}
             onChange={(e) => setFilters({ ...filters, section: e.target.value })}
             className="px-2 py-1 border border-gray-300 rounded text-sm"
@@ -363,7 +363,7 @@ const AdminDashboard: React.FC<{}> = () => {
             <option value="A">Section A</option>
             <option value="B">Section B</option>
             <option value="C">Section C</option>
-          </select>
+          </select> */}
 
           <select
             value={filters.dateRange}
