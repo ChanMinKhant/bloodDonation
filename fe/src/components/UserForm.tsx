@@ -197,6 +197,17 @@ const handleSubmit = async (e: React.FormEvent) => {
                   />
                   Negative (-)
                 </label>
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="bloodRh"
+                    value="?"
+                    checked={formData.bloodRh === "unknown"}
+                    onChange={(e) => setFormData({ ...formData, bloodRh: e.target.value })}
+                    className="mr-2 text-red-600"
+                  />
+                  Unknown
+                </label>
               </div>
             </div>
             {errors.bloodType && <p className="text-red-500 text-sm mt-1">{errors.bloodType}</p>}

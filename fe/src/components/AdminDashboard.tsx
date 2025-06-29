@@ -37,7 +37,12 @@ const AdminDashboard: React.FC<{}> = () => {
         record.bloodType.toLowerCase().includes(searchTerm.toLowerCase())
 
       // Blood type filter
-      const matchesBloodType = !filters.bloodType || record.bloodType === filters.bloodType
+      const matchesBloodType = !filters.bloodType ||
+        (filters.bloodType === "A" && ["A+", "A-", "A?", "A"].includes(record.bloodType)) ||
+        (filters.bloodType === "B" && ["B+", "B-", "B?", "B"].includes(record.bloodType)) ||
+        (filters.bloodType === "AB" && ["AB+", "AB-", "AB?", "AB"].includes(record.bloodType)) ||
+        (filters.bloodType === "O" && ["O+", "O-", "O?", "O"].includes(record.bloodType)) ||
+        record.bloodType === filters.bloodType
 
       // Donation status filter
       const matchesDonationStatus =
@@ -285,12 +290,20 @@ const AdminDashboard: React.FC<{}> = () => {
             <option value="">All Blood Types</option>
             <option value="A+">A+</option>
             <option value="A-">A-</option>
+            <option value="A?">A?</option>
+            <option value="A">A (All)</option>
             <option value="B+">B+</option>
             <option value="B-">B-</option>
+            <option value="B?">B?</option>
+            <option value="B">B (All)</option>
             <option value="AB+">AB+</option>
             <option value="AB-">AB-</option>
+            <option value="AB?">AB?</option>
+            <option value="AB">AB (All)</option>
             <option value="O+">O+</option>
             <option value="O-">O-</option>
+            <option value="O?">O?</option>
+            <option value="O">O (All)</option>
           </select>
 
           <select
