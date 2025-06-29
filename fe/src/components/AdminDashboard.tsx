@@ -246,46 +246,61 @@ const AdminDashboard: React.FC<{}> = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">Admin Dashboard</h2>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <div className="text-2xl font-bold text-blue-600">{stats.total}</div>
-            <div className="text-sm text-blue-800">Total Records</div>
+      <div className="bg-white rounded-lg shadow-lg p-4">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+          <div>
+        <h2 className="text-xl font-semibold text-gray-800">Admin Dashboard</h2>
+        <div className="flex flex-wrap gap-2 mt-2">
+          <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded text-xs font-medium">
+            Total: {stats.total}
+          </span>
+          <span className="bg-green-50 text-green-700 px-3 py-1 rounded text-xs font-medium">
+            Willing: {stats.willing}
+          </span>
+          <span className="bg-purple-50 text-purple-700 px-3 py-1 rounded text-xs font-medium">
+            Students: {stats.students}
+          </span>
+          <span className="bg-red-50 text-red-700 px-3 py-1 rounded text-xs font-medium">
+            Filtered: {filteredRecords.length}
+          </span>
+        </div>
           </div>
-          <div className="bg-green-50 p-4 rounded-lg">
-            <div className="text-2xl font-bold text-green-600">{stats.willing}</div>
-            <div className="text-sm text-green-800">Willing Donors</div>
-          </div>
-          <div className="bg-purple-50 p-4 rounded-lg">
-            <div className="text-2xl font-bold text-purple-600">{stats.students}</div>
-            <div className="text-sm text-purple-800">Students</div>
-          </div>
-          <div className="bg-red-50 p-4 rounded-lg">
-            <div className="text-2xl font-bold text-red-600">{filteredRecords.length}</div>
-            <div className="text-sm text-red-800">Filtered Results</div>
+          <div className="flex gap-2">
+        <button
+          onClick={clearFilters}
+          className="px-3 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm"
+        >
+          Clear Filters
+        </button>
+        <button
+          onClick={exportToCSV}
+          className="px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm flex items-center gap-1"
+        >
+          📊 Export CSV
+        </button>
           </div>
         </div>
 
-        {/* Search */}
-        <div className="mb-4">
+        {/* Search and Filters Dropdown */}
+        <div className="flex flex-col md:flex-row md:items-center gap-3 mb-2">
           <input
-            type="text"
-            placeholder="Search by name, phone, or blood type..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+        type="text"
+        placeholder="Search by name, phone, or blood type..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="w-full md:w-64 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm"
           />
-        </div>
 
-        {/* Filters */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-4">
+          {/* Filters Dropdown */}
+          <details className="w-full md:w-auto">
+        <summary className="cursor-pointer px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100 text-sm font-medium select-none">
+          Filters
+        </summary>
+        <div className="mt-2 p-3 bg-white border border-gray-200 rounded-lg shadow-lg flex flex-col gap-2 min-w-[220px] z-10">
           <select
             value={filters.bloodType}
             onChange={(e) => setFilters({ ...filters, bloodType: e.target.value })}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+            className="px-2 py-1 border border-gray-300 rounded text-sm"
           >
             <option value="">All Blood Types</option>
             <option value="A+">A+</option>
@@ -309,7 +324,7 @@ const AdminDashboard: React.FC<{}> = () => {
           <select
             value={filters.donationStatus}
             onChange={(e) => setFilters({ ...filters, donationStatus: e.target.value })}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+            className="px-2 py-1 border border-gray-300 rounded text-sm"
           >
             <option value="">All Donation Status</option>
             <option value="willing">Willing to Donate</option>
@@ -319,7 +334,7 @@ const AdminDashboard: React.FC<{}> = () => {
           <select
             value={filters.studentType}
             onChange={(e) => setFilters({ ...filters, studentType: e.target.value })}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+            className="px-2 py-1 border border-gray-300 rounded text-sm"
           >
             <option value="">All Types</option>
             <option value="student">Students</option>
@@ -329,7 +344,7 @@ const AdminDashboard: React.FC<{}> = () => {
           <select
             value={filters.year}
             onChange={(e) => setFilters({ ...filters, year: e.target.value })}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+            className="px-2 py-1 border border-gray-300 rounded text-sm"
           >
             <option value="">All Years</option>
             <option value="1">Year 1</option>
@@ -342,7 +357,7 @@ const AdminDashboard: React.FC<{}> = () => {
           <select
             value={filters.section}
             onChange={(e) => setFilters({ ...filters, section: e.target.value })}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+            className="px-2 py-1 border border-gray-300 rounded text-sm"
           >
             <option value="">All Sections</option>
             <option value="A">Section A</option>
@@ -353,29 +368,15 @@ const AdminDashboard: React.FC<{}> = () => {
           <select
             value={filters.dateRange}
             onChange={(e) => setFilters({ ...filters, dateRange: e.target.value })}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+            className="px-2 py-1 border border-gray-300 rounded text-sm"
           >
             <option value="">All Dates</option>
-            <option value="recent">Recent ({"<"} 3 months)</option>
-            <option value="eligible">Eligible ({">"} 3 months)</option>
-            <option value="long-ago">Long ago ({">"} 1 year)</option>
+            <option value="recent">Recent (&lt; 3 months)</option>
+            <option value="eligible">Eligible (&gt; 3 months)</option>
+            <option value="long-ago">Long ago (&gt; 1 year)</option>
           </select>
         </div>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
-          <button
-            onClick={clearFilters}
-            className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            Clear Filters
-          </button>
-
-          <button
-            onClick={exportToCSV}
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
-          >
-            📊 Export to CSV ({filteredRecords.length} records)
-          </button>
+          </details>
         </div>
       </div>
 
