@@ -202,7 +202,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                     type="radio"
                     name="bloodRh"
                     value="?"
-                    checked={formData.bloodRh === "unknown"}
+                    checked={formData.bloodRh === "?"}
                     onChange={(e) => setFormData({ ...formData, bloodRh: e.target.value })}
                     className="mr-2 text-red-600"
                   />
