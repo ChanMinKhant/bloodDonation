@@ -428,41 +428,41 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ userRole }) => {
       </div>
 
       {/* Tab Switching & Actions Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-px">
+        <div className="flex items-center gap-6">
           <button
             onClick={() => setActiveTab("donations")}
-            className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-200 flex items-center gap-2 ${
+            className={`pb-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-all duration-200 flex items-center gap-1.5 focus:outline-none ${
               activeTab === "donations"
-                ? "bg-red-600 text-white shadow-md shadow-red-100"
-                : "text-slate-600 hover:text-slate-800 hover:bg-slate-50"
+                ? "border-red-600 text-red-600"
+                : "border-transparent text-slate-500 hover:text-slate-800"
             }`}
           >
-            <Database className="h-4 w-4" />
+            <Database className="h-3.5 w-3.5" />
             Donations Database
           </button>
           
           {userRole === "owner" && (
             <button
               onClick={() => setActiveTab("users")}
-              className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-200 flex items-center gap-2 ${
+              className={`pb-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-all duration-200 flex items-center gap-1.5 focus:outline-none ${
                 activeTab === "users"
-                  ? "bg-red-600 text-white shadow-md shadow-red-100"
-                  : "text-slate-600 hover:text-slate-800 hover:bg-slate-50"
+                  ? "border-red-600 text-red-600"
+                  : "border-transparent text-slate-500 hover:text-slate-800"
               }`}
             >
-              <Users className="h-4 w-4" />
+              <Users className="h-3.5 w-3.5" />
               Admin Accounts
             </button>
           )}
         </div>
 
-        <div className="flex items-center gap-2 self-end sm:self-auto">
+        <div className="flex items-center gap-2 pb-3 md:pb-0">
           {activeTab === "donations" && (
             <>
               <button
                 onClick={clearFilters}
-                className="px-3.5 py-2 text-xs font-semibold text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl transition-colors"
+                className="px-3 py-1.5 text-xs font-semibold text-slate-650 hover:text-slate-800 transition-colors"
               >
                 Clear Filters
               </button>
@@ -470,7 +470,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ userRole }) => {
               {userRole === "owner" && (
                 <button
                   onClick={handleExportCSV}
-                  className="px-3.5 py-2 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl flex items-center gap-1.5 transition-colors"
+                  className="px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl flex items-center gap-1.5 transition-colors"
                 >
                   <Download className="h-3.5 w-3.5" />
                   Export CSV
