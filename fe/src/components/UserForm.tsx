@@ -2,7 +2,7 @@ import type React from "react"
 import { useState } from "react"
 import { host } from "../host"
 import { useToast } from "../context/ToastContext"
-import { CheckCircle2, Heart, Sparkles, Clock, Check } from "lucide-react"
+import { CheckCircle2, Heart, Sparkles, Clock, Check, User, Phone, Calendar, MapPin, Activity } from "lucide-react"
 
 const UserForm: React.FC<{}> = () => {
   const [formData, setFormData] = useState({
@@ -186,7 +186,6 @@ const UserForm: React.FC<{}> = () => {
           </div>
         </div>
 
-        {/* Right Column: Donation Form Card */}
         <div className="lg:col-span-7 bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8 transition-all">
           {isSubmitted ? (
             <div className="py-16 text-center space-y-4">
@@ -201,41 +200,48 @@ const UserForm: React.FC<{}> = () => {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <h3 className="text-lg font-black text-slate-850">သွေးလှူဒါန်းရန် စာရင်းသွင်းရန်</h3>
+                <h3 className="text-lg font-black text-slate-800">သွေးလှူဒါန်းရန် စာရင်းသွင်းရန်</h3>
                 <p className="text-slate-400 text-xs mt-1">ကျေးဇူးပြု၍ လိုအပ်သောအချက်အလက်များကို မှန်ကန်စွာဖြည့်စွက်ပေးပါ။</p>
               </div>
 
-              {/* Name */}
               <div>
                 <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">အမည် (Full Name) *</label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className={`w-full px-3 py-2.5 border rounded-xl focus:ring-2 focus:ring-red-500/10 focus:border-red-500 focus:outline-none transition-all text-sm ${
-                    errors.name ? "border-red-500" : "border-slate-200"
-                  }`}
-                  placeholder="ဦး/ဒေါ် အမည်အပြည့်အစုံ ဖြည့်ပေးပါ"
-                />
+                <div className="relative">
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 pointer-events-none">
+                    <User className="h-4.5 w-4.5" />
+                  </span>
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className={`w-full pl-10 pr-3 py-2.5 border rounded-xl focus:ring-2 focus:ring-red-500/10 focus:border-red-500 focus:outline-none transition-all text-sm ${
+                      errors.name ? "border-red-500" : "border-slate-200"
+                    }`}
+                    placeholder="ဦး/ဒေါ် အမည်အပြည့်အစုံ ဖြည့်ပေးပါ"
+                  />
+                </div>
                 {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
               </div>
 
-              {/* Phone */}
               <div>
                 <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">ဖုန်းနံပါတ် (Phone Number) *</label>
-                <input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className={`w-full px-3 py-2.5 border rounded-xl focus:ring-2 focus:ring-red-500/10 focus:border-red-500 focus:outline-none transition-all text-sm ${
-                    errors.phone ? "border-red-500" : "border-slate-200"
-                  }`}
-                  placeholder="ဆက်သွယ်ရန် ဖုန်းနံပါတ်"
-                />
+                <div className="relative">
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 pointer-events-none">
+                    <Phone className="h-4.5 w-4.5" />
+                  </span>
+                  <input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className={`w-full pl-10 pr-3 py-2.5 border rounded-xl focus:ring-2 focus:ring-red-500/10 focus:border-red-500 focus:outline-none transition-all text-sm ${
+                      errors.phone ? "border-red-500" : "border-slate-200"
+                    }`}
+                    placeholder="ဆက်သွယ်ရန် ဖုန်းနံပါတ်"
+                  />
+                </div>
                 {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
               </div>
 
-              {/* Blood Type */}
               <div>
                 <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">သွေးအုပ်စု (Blood Type) *</label>
                 <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
@@ -255,135 +261,149 @@ const UserForm: React.FC<{}> = () => {
                       ))}
                     </select>
                   </div>
-                  <div className="flex gap-4 px-2 py-1">
-                    {["+", "-", "?"].map((rh) => (
-                      <label key={rh} className="flex items-center gap-1.5 cursor-pointer text-sm font-semibold text-slate-700">
-                        <input
-                          type="radio"
-                          name="bloodRh"
-                          value={rh}
-                          checked={formData.bloodRh === rh}
-                          onChange={(e) => setFormData({ ...formData, bloodRh: e.target.value })}
-                          className="text-red-600 focus:ring-red-500 h-4 w-4 border-slate-350"
-                        />
-                        {rh === "+" ? "Rh (+)" : rh === "-" ? "Rh (-)" : "မသိပါ"}
-                      </label>
-                    ))}
+                  <div className="flex gap-2">
+                    {[
+                      { label: "Rh (+)", value: "+" },
+                      { label: "Rh (-)", value: "-" },
+                      { label: "မသိပါ", value: "?" }
+                    ].map((rh) => {
+                      const active = formData.bloodRh === rh.value;
+                      return (
+                        <button
+                          key={rh.value}
+                          type="button"
+                          onClick={() => setFormData({ ...formData, bloodRh: rh.value })}
+                          className={`px-3 py-2 text-xs font-bold border rounded-xl transition-all ${
+                            active
+                              ? "bg-red-50 border-red-500 text-red-700 shadow-sm"
+                              : "border-slate-200 text-slate-600 hover:bg-slate-50 bg-white"
+                          }`}
+                        >
+                          {rh.label}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
                 {errors.bloodType && <p className="text-red-500 text-xs mt-1">{errors.bloodType}</p>}
               </div>
 
-              {/* Age */}
               <div>
                 <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">အသက် (Age) *</label>
-                <input
-                  type="number"
-                  min="18"
-                  max="65"
-                  value={formData.age}
-                  onChange={(e) => setFormData({ ...formData, age: e.target.value })}
-                  className={`w-full px-3 py-2.5 border rounded-xl focus:ring-2 focus:ring-red-500/10 focus:border-red-500 focus:outline-none transition-all text-sm ${
-                    errors.age ? "border-red-500" : "border-slate-200"
-                  }`}
-                  placeholder="အလှူရှင် အသက် (၁၈ မှ ၆၅ နှစ်အတွင်း)"
-                />
+                <div className="relative">
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 pointer-events-none">
+                    <Activity className="h-4.5 w-4.5" />
+                  </span>
+                  <input
+                    type="number"
+                    min="18"
+                    max="65"
+                    value={formData.age}
+                    onChange={(e) => setFormData({ ...formData, age: e.target.value })}
+                    className={`w-full pl-10 pr-3 py-2.5 border rounded-xl focus:ring-2 focus:ring-red-500/10 focus:border-red-500 focus:outline-none transition-all text-sm ${
+                      errors.age ? "border-red-500" : "border-slate-200"
+                    }`}
+                    placeholder="အလှူရှင် အသက် (၁၈ မှ ၆၅ နှစ်အတွင်း)"
+                  />
+                </div>
                 {errors.age && <p className="text-red-500 text-xs mt-1">{errors.age}</p>}
               </div>
 
-              {/* Willing to Donate */}
-              <div className="flex items-center gap-2.5 py-1">
+              <div 
+                onClick={() => setFormData({ ...formData, willingToDonate: !formData.willingToDonate })}
+                className={`flex items-center gap-3 p-4 border rounded-xl cursor-pointer select-none transition-all ${
+                  formData.willingToDonate
+                    ? "bg-red-50/50 border-red-300 text-red-800"
+                    : "bg-white border-slate-200 hover:bg-slate-50 text-slate-600"
+                }`}
+              >
                 <input
                   type="checkbox"
-                  id="willingToDonate"
                   checked={formData.willingToDonate}
-                  onChange={(e) => setFormData({ ...formData, willingToDonate: e.target.checked })}
-                  className="h-4.5 w-4.5 text-red-600 border-slate-350 focus:ring-red-500 rounded-lg"
+                  onChange={() => {}}
+                  className="h-4.5 w-4.5 text-red-600 border-slate-300 focus:ring-red-500 rounded-lg shrink-0 pointer-events-none"
                 />
-                <label htmlFor="willingToDonate" className="text-sm font-semibold text-slate-700 cursor-pointer select-none">
+                <span className="text-xs font-bold uppercase tracking-wider">
                   လိုအပ်ပါက သွေးလာရောက်လှူဒါန်းရန် အဆင်ပြေပါသည်
-                </label>
+                </span>
               </div>
 
-              {/* Recent Donation Status */}
               <div>
                 <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">မကြာသေးမီက သွေးလှူဒါန်းထားခြင်း ရှိပါသလား။ *</label>
-                <div className="flex gap-6 mt-2">
-                  <label className="flex items-center gap-1.5 cursor-pointer text-sm font-semibold text-slate-700">
-                    <input
-                      type="radio"
-                      name="hasRecentlyDonated"
-                      value="yes"
-                      checked={formData.hasRecentlyDonated === true}
-                      onChange={() => setFormData({ ...formData, hasRecentlyDonated: true })}
-                      className="text-red-600 focus:ring-red-500 h-4 w-4 border-slate-350"
-                    />
-                    ရှိခဲ့ပါသည်
-                  </label>
-                  <label className="flex items-center gap-1.5 cursor-pointer text-sm font-semibold text-slate-700">
-                    <input
-                      type="radio"
-                      name="hasRecentlyDonated"
-                      value="no"
-                      checked={formData.hasRecentlyDonated === false}
-                      onChange={() => setFormData({ ...formData, hasRecentlyDonated: false, lastDonationDate: "" })}
-                      className="text-red-600 focus:ring-red-500 h-4 w-4 border-slate-350"
-                    />
-                    မလှူဖူးပါ / မရှိပါ
-                  </label>
+                <div className="grid grid-cols-2 gap-3 mt-2">
+                  {[
+                    { label: "ရှိခဲ့ပါသည်", value: true },
+                    { label: "မလှူဖူးပါ / မရှိပါ", value: false }
+                  ].map((opt) => {
+                    const active = formData.hasRecentlyDonated === opt.value;
+                    return (
+                      <button
+                        key={opt.label}
+                        type="button"
+                        onClick={() => setFormData({ 
+                          ...formData, 
+                          hasRecentlyDonated: opt.value, 
+                          ...(opt.value === false ? { lastDonationDate: "" } : {}) 
+                        })}
+                        className={`py-3 text-xs font-bold border rounded-xl text-center transition-all ${
+                          active
+                            ? "bg-red-50 border-red-500 text-red-700 shadow-sm"
+                            : "border-slate-200 text-slate-600 hover:bg-slate-50 bg-white"
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
-              {/* Last Donation Date */}
               {formData.hasRecentlyDonated && (
                 <div className="animate-slide-in">
                   <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">နောက်ဆုံးသွေးလှူခဲ့သည့်ရက်စွဲ *</label>
-                  <input
-                    type="date"
-                    value={formData.lastDonationDate}
-                    onChange={(e) => setFormData({ ...formData, lastDonationDate: e.target.value })}
-                    className={`w-full px-3 py-2.5 border rounded-xl focus:ring-2 focus:ring-red-500/10 focus:border-red-500 focus:outline-none transition-all text-sm ${
-                      errors.lastDonationDate ? "border-red-500" : "border-slate-200"
-                    }`}
-                  />
+                  <div className="relative">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 pointer-events-none">
+                      <Calendar className="h-4.5 w-4.5" />
+                    </span>
+                    <input
+                      type="date"
+                      value={formData.lastDonationDate}
+                      onChange={(e) => setFormData({ ...formData, lastDonationDate: e.target.value })}
+                      className={`w-full pl-10 pr-3 py-2.5 border rounded-xl focus:ring-2 focus:ring-red-500/10 focus:border-red-500 focus:outline-none transition-all text-sm ${
+                        errors.lastDonationDate ? "border-red-500" : "border-slate-200"
+                      }`}
+                    />
+                  </div>
                   {errors.lastDonationDate && <p className="text-red-500 text-xs mt-1">{errors.lastDonationDate}</p>}
                 </div>
               )}
 
-              {/* Student Status */}
               <div>
                 <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">ကျောင်းသား/သူ ဖြစ်ပါသလား။ *</label>
-                <div className="flex gap-6 mt-2">
-                  <label className="flex items-center gap-1.5 cursor-pointer text-sm font-semibold text-slate-700">
-                    <input
-                      type="radio"
-                      name="studentType"
-                      value="student"
-                      checked={formData.studentType === "student"}
-                      onChange={(e) =>
-                        setFormData({ ...formData, studentType: e.target.value as "student" | "not-student" })
-                      }
-                      className="text-red-600 focus:ring-red-500 h-4 w-4 border-slate-350"
-                    />
-                    ကျောင်းသား/သူ ဖြစ်ပါသည်
-                  </label>
-                  <label className="flex items-center gap-1.5 cursor-pointer text-sm font-semibold text-slate-700">
-                    <input
-                      type="radio"
-                      name="studentType"
-                      value="not-student"
-                      checked={formData.studentType === "not-student"}
-                      onChange={(e) =>
-                        setFormData({ ...formData, studentType: e.target.value as "student" | "not-student" })
-                      }
-                      className="text-red-600 focus:ring-red-500 h-4 w-4 border-slate-350"
-                    />
-                    အခြား / ကျောင်းသားမဟုတ်ပါ
-                  </label>
+                <div className="grid grid-cols-2 gap-3 mt-2">
+                  {[
+                    { label: "ကျောင်းသား/သူ ဖြစ်ပါသည်", value: "student" },
+                    { label: "အခြား / ကျောင်းသားမဟုတ်ပါ", value: "not-student" }
+                  ].map((opt) => {
+                    const active = formData.studentType === opt.value;
+                    return (
+                      <button
+                        key={opt.label}
+                        type="button"
+                        onClick={() => setFormData({ ...formData, studentType: opt.value as "student" | "not-student" })}
+                        className={`py-3 text-xs font-bold border rounded-xl text-center transition-all ${
+                          active
+                            ? "bg-red-50 border-red-500 text-red-700 shadow-sm"
+                            : "border-slate-200 text-slate-600 hover:bg-slate-50 bg-white"
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
-              {/* Student Fields */}
               {formData.studentType === "student" && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-slide-in">
                   <div>
@@ -422,19 +442,23 @@ const UserForm: React.FC<{}> = () => {
                 </div>
               )}
 
-              {/* Non-Student Fields */}
               {formData.studentType === "not-student" && (
                 <div className="animate-slide-in">
                   <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">နေရပ်လိပ်စာ (Address) *</label>
-                  <textarea
-                    value={formData.address}
-                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    rows={3}
-                    className={`w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-red-500/10 focus:border-red-500 focus:outline-none transition-all text-sm ${
-                      errors.address ? "border-red-500" : "border-slate-200"
-                    }`}
-                    placeholder="မြို့နယ်၊ လမ်း၊ အိမ်နံပါတ် အပြည့်အစုံ ဖြည့်ပေးပါ"
-                  />
+                  <div className="relative">
+                    <span className="absolute left-3 top-3 text-slate-400 pointer-events-none">
+                      <MapPin className="h-4.5 w-4.5" />
+                    </span>
+                    <textarea
+                      value={formData.address}
+                      onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                      rows={3}
+                      className={`w-full pl-10 pr-3 py-2 border rounded-xl focus:ring-2 focus:ring-red-500/10 focus:border-red-500 focus:outline-none transition-all text-sm ${
+                        errors.address ? "border-red-500" : "border-slate-200"
+                      }`}
+                      placeholder="မြို့နယ်၊ လမ်း၊ အိမ်နံပါတ် အပြည့်အစုံ ဖြည့်ပေးပါ"
+                    />
+                  </div>
                   {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address}</p>}
                 </div>
               )}
