@@ -75,7 +75,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     }
 
     try {
-        await fetch(`${host}/create`, {
+        await fetch(`${host}/api/donations`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(record),
