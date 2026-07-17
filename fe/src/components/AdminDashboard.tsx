@@ -16,7 +16,8 @@ import {
   X, 
   Users, 
   Database,
-  PlusCircle
+  PlusCircle,
+  Copy
 } from "lucide-react"
 
 interface AdminDashboardProps {
@@ -563,7 +564,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ userRole }) => {
                     <th className="px-5 py-3 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider w-16">No.</th>
                     <th 
                       onClick={() => handleSort("name")}
-                      className="px-5 py-3 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider cursor-pointer hover:bg-slate-100 group select-none"
+                      className="px-5 py-3 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider cursor-pointer hover:bg-slate-100 group select-none min-w-[170px]"
                     >
                       <div className="flex items-center gap-1">
                         Name
@@ -629,8 +630,22 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ userRole }) => {
                       return (
                         <tr key={record._id} className="hover:bg-slate-50/50 transition-colors">
                           <td className="px-5 py-4 text-slate-500 font-medium">{absoluteIndex}</td>
-                          <td className="px-5 py-4 font-semibold text-slate-800">{record.name}</td>
-                          <td className="px-5 py-4 text-slate-600 font-medium">{record.phone}</td>
+                          <td className="px-5 py-4 font-semibold text-slate-800 min-w-[170px]">{record.name}</td>
+                          <td 
+                            className="px-5 py-4 text-slate-600 font-medium cursor-pointer hover:text-slate-900 group/phone transition-colors"
+                            onClick={() => {
+                              navigator.clipboard.writeText(record.phone)
+                              showToast(`Copied phone number: ${record.phone}`, "success")
+                            }}
+                            title="Click to copy phone number"
+                          >
+                            <div className="flex items-center gap-1.5">
+                              {record.phone}
+                              <span className="opacity-0 group-hover/phone:opacity-100 transition-opacity text-slate-400">
+                                <Copy className="h-3 w-3" />
+                              </span>
+                            </div>
+                          </td>
                           <td className="px-5 py-4">
                             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-50 text-red-700 border border-red-100">
                               {record.bloodType}
