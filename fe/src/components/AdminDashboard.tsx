@@ -413,17 +413,16 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ userRole }) => {
   return (
     <div className="space-y-6">
       {/* Upper Stats Row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
-          { label: "Total Donors", value: stats.total, color: "border-l-red-500", desc: "Registered donors" },
-          { label: "Active & Willing", value: stats.willing, color: "border-l-emerald-500", desc: "Willing to donate" },
-          { label: "Students", value: stats.students, color: "border-l-blue-500", desc: "University students" },
-          { label: "Non-Students", value: stats.nonStudents, color: "border-l-indigo-500", desc: "External contributors" }
+          { label: "Total Donors", value: stats.total, color: "border-l-red-500" },
+          { label: "Active & Willing", value: stats.willing, color: "border-l-emerald-500" },
+          { label: "Students", value: stats.students, color: "border-l-blue-500" },
+          { label: "Non-Students", value: stats.nonStudents, color: "border-l-indigo-500" }
         ].map((s, idx) => (
-          <div key={idx} className={`bg-white p-5 rounded-2xl border border-slate-100 border-l-4 ${s.color} shadow-sm`}>
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{s.label}</p>
-            <p className="text-2xl font-bold text-slate-800 mt-1">{s.value}</p>
-            <p className="text-[10px] text-slate-400 mt-1">{s.desc}</p>
+          <div key={idx} className={`bg-white p-3.5 rounded-xl border border-slate-100 border-l-4 ${s.color} shadow-sm`}>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">{s.label}</p>
+            <p className="text-base font-black text-slate-800 mt-1.5 leading-none">{s.value}</p>
           </div>
         ))}
       </div>
@@ -555,6 +554,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ userRole }) => {
             </div>
           </div>
 
+          {/* Warning Banner */}
+          <div className="bg-amber-50/70 border border-amber-200/50 text-amber-800 px-4 py-3 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm">
+            <span className="text-sm">⚠️</span>
+            <span>သွေးလှူပြီးပါက Last Donation Date ကို နှိပ်၍ ပြင်ပေးပါရန်</span>
+          </div>
+
           {/* Data Table */}
           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
@@ -601,7 +606,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ userRole }) => {
                     </th>
                     <th 
                       onClick={() => handleSort("lastDonationDate")}
-                      className="px-5 py-3 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider cursor-pointer hover:bg-slate-100 group select-none w-56"
+                      className="px-5 py-3 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider cursor-pointer hover:bg-slate-100 group select-none min-w-[215px]"
                     >
                       <div className="flex items-center gap-1">
                         Last Donation Date
@@ -663,14 +668,26 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ userRole }) => {
                               {record.willingToDonate ? "Yes" : "No"}
                             </span>
                           </td>
-                          <td className="px-5 py-4">
+                          <td 
+                            className="px-5 py-4 cursor-pointer hover:bg-slate-50/50 transition-all select-none min-w-[215px]"
+                            onClick={() => {
+                              if (!isEditingInline) {
+                                setInlineEditId(record._id)
+                                setInlineEditValue(
+                                  record.lastDonationDate === "Never donated"
+                                    ? ""
+                                    : record.lastDonationDate
+                                )
+                              }
+                            }}
+                          >
                             {isEditingInline ? (
                               <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
                                 <input
                                   type="date"
                                   value={inlineEditValue}
                                   onChange={(e) => setInlineEditValue(e.target.value)}
-                                  className="px-2 py-1 border border-slate-200 rounded-lg text-xs outline-none focus:border-red-500"
+                                  className="px-2 py-1 border border-slate-200 rounded-lg text-xs outline-none focus:border-red-500 bg-white"
                                 />
                                 <button
                                   onClick={() => handleSaveInlineDate(record._id)}
@@ -689,7 +706,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ userRole }) => {
                               </div>
                             ) : (
                               <div className="flex items-center justify-between group/date gap-2">
-                                <span className="text-slate-600 font-medium">
+                                <span className="text-slate-600 font-semibold">
                                   {record.lastDonationDate === "Never donated"
                                     ? "Never donated"
                                     : new Date(record.lastDonationDate).toLocaleDateString("en-US", {
@@ -700,7 +717,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ userRole }) => {
                                 </span>
                                 {/* Edit trigger visible on hover or mobile */}
                                 <button
-                                  onClick={() => {
+                                  onClick={(e) => {
+                                    e.stopPropagation();
                                     setInlineEditId(record._id)
                                     setInlineEditValue(
                                       record.lastDonationDate === "Never donated"
